@@ -35,7 +35,7 @@ server.post("/url-shortner", (req, res) => {
 
   if (isUrlValid(urlToShorten)) {
     const shortUrl = nanoid(8);
-    const fileaResponse = fs.readFileSync("urlMap.json", "utf8");
+    const fileaResponse = fs.readFileSync("urlFile.json", "utf8");
     const fileData = JSON.parse(fileaResponse);
     fileData[shortUrl] = urlToShorten;
     fs.writeFileSync("urlMap.json", JSON.stringify(fileData));
@@ -54,7 +54,7 @@ server.post("/url-shortner", (req, res) => {
 server.get('/:shortUrl', (req, res)=>{
     let url = req.params.shortUrl;
     console.log(url);
-    const fileaResponse = fs.readFileSync("urlMap.json", "utf8");
+    const fileaResponse = fs.readFileSync("urlFile.json", "utf8");
     const fileData = JSON.parse(fileaResponse);
     const longUrl = fileData[url]
         if(longUrl){
@@ -66,6 +66,6 @@ server.get('/:shortUrl', (req, res)=>{
     }
 })
 
-server.listen(3000, () => {
+server.listen(10000, () => {
   console.log("server is live and running on port 10000");
 });
